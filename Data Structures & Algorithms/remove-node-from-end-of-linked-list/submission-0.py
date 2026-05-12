@@ -1,0 +1,37 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+# the thing that makes the problem tricky is that had we were to delete 
+# frlm the beginning just travel n steps and do node.next = node.next.next and
+# we're good , but here we need to delete from backwards whic is not easy as 
+# we ought to travel list only once .
+
+# Instead of different speeds, we use a fixed gap.
+# Put two pointers (fast and slow) at a Dummy Node before the head.
+# Give fast a head start of \(n\) steps
+# Now, move both fast and slow forward at the same speed (1 step at a time).
+# Because the gap between them is exactly \(\), when fast reaches the very 
+# last node,slow will be standing right before the node we want to delete.
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy  = ListNode(0, head)
+        slow = fast = dummy 
+
+        for _ in range(n):
+            fast = fast.next 
+        
+        while fast.next :
+            slow = slow.next 
+            fast  = fast.next 
+        
+        slow.next = slow.next.next 
+        return dummy.next
+
+
+
+
+
